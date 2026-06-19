@@ -3,7 +3,7 @@ import { CartContext } from '../context/CartContext';
 import { Trash2 } from 'lucide-react';
 
 const CartPage = () => {
-  const { cart, removeFromCart } = useContext(CartContext);
+  const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
 
   const cartTotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
 
@@ -18,17 +18,34 @@ const CartPage = () => {
           <>
             <div className="cart-items">
               {cart.map((item) => (
-                <div key={item._id || item.name} className="cart-item">
+                <div key={`${item._id}-${item.selectedSize}`} className="cart-item">
                   <img src={item.imageUrl} alt={item.name} className="cart-item-img" />
                   <div className="cart-item-details">
                     <h3 className="cart-item-title">{item.name}</h3>
                     <p className="product-team">{item.team}</p>
-                    <p>Qty: {item.qty}</p>
+                    <p className="cart-item-size">Size: {item.selectedSize}</p>
+                    <div className="qty-controls">
+                      <button 
+                        className="btn-qty" 
+                        onClick={() => updateQuantity(item._id, item.selectedSize, item.qty - 1)}
+                        disabled={item.qty <= 1}
+                      >
+                        -
+                      </button>
+                      <span className="qty-value">{item.qty}</span>
+                      <button 
+                        className="btn-qty" 
+                        onClick={() => updateQuantity(item._id, item.selectedSize, item.qty + 1)}
+                        disabled={item.qty >= item.stockCount}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                   <div className="cart-item-price">${(item.price * item.qty).toFixed(2)}</div>
                   <button 
                     className="btn-remove" 
-                    onClick={() => removeFromCart(item._id || item.name)}
+                    onClick={() => removeFromCart(item._id, item.selectedSize)}
                   >
                     <Trash2 size={20} />
                   </button>

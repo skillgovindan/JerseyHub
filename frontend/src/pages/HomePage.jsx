@@ -8,6 +8,7 @@ const isComingSoon = (url) => url && url.includes('placehold.co');
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
@@ -54,17 +55,13 @@ const HomePage = () => {
                 ) : (
                   <div className="card-actions">
                     <button 
-                      className="btn-view" 
-                      onClick={() => setSelectedProduct(product)}
-                      title="Quick View"
-                    >
-                      <Eye size={20} />
-                    </button>
-                    <button 
                       className="btn-add flex-1" 
-                      onClick={() => addToCart(product)}
+                      onClick={() => {
+                        setSelectedProduct(product);
+                        setSelectedSize(null);
+                      }}
                     >
-                      Add to Cart
+                      Select Size
                     </button>
                   </div>
                 )}
@@ -92,10 +89,16 @@ const HomePage = () => {
                 <p className="modal-desc">{selectedProduct.description}</p>
                 
                 <div className="modal-sizes">
-                  <h4>Available Sizes</h4>
+                  <h4>Select Size</h4>
                   <div className="size-options">
                     {selectedProduct.sizes.map(size => (
-                      <span key={size} className="size-badge">{size}</span>
+                      <span 
+                        key={size} 
+                        className={`size-badge ${selectedSize === size ? 'selected' : ''}`}
+                        onClick={() => setSelectedSize(size)}
+                      >
+                        {size}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -107,14 +110,17 @@ const HomePage = () => {
                 </div>
                 
                 <button 
-                  className="btn-add modal-btn" 
+                  className={`btn-add modal-btn ${!selectedSize ? 'disabled' : ''}`} 
                   onClick={() => {
-                    addToCart(selectedProduct);
-                    setSelectedProduct(null);
+                    if (selectedSize) {
+                      addToCart(selectedProduct, selectedSize);
+                      setSelectedProduct(null);
+                      setSelectedSize(null);
+                    }
                   }}
-                  disabled={selectedProduct.stockCount === 0}
+                  disabled={selectedProduct.stockCount === 0 || !selectedSize}
                 >
-                  Add to Cart
+                  {!selectedSize ? 'Please Select a Size' : 'Add to Cart'}
                 </button>
               </div>
             </div>
