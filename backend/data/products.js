@@ -403,7 +403,7 @@ const products = [
       "XL"
     ],
     "stockCount": 40,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Atletico_Madrid_2017_logo.svg/800px-Atletico_Madrid_2017_logo.svg.png"
+    "imageUrl": "/jerseys/atletico-madrid-.webp"
   },
   {
     "_id": "club-4",
@@ -418,7 +418,7 @@ const products = [
       "XL"
     ],
     "stockCount": 60,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/800px-Manchester_City_FC_badge.svg.png"
+    "imageUrl": "/jerseys/manchester city.webp"
   },
   {
     "_id": "club-5",
