@@ -1,13 +1,17 @@
 import * as productRepository from '../repositories/productRepository.js';
 import mockProducts from '../data/products.js';
 
+import mongoose from 'mongoose';
+
 export const getAllProducts = async () => {
   try {
-    const dbProducts = await productRepository.findAllProducts();
-    if (dbProducts && dbProducts.length > 0) {
-      return dbProducts;
+    if (mongoose.connection.readyState === 1) {
+      const dbProducts = await productRepository.findAllProducts();
+      if (dbProducts && dbProducts.length > 0) {
+        return dbProducts;
+      }
     }
-    // Fallback to mock data if DB is empty
+    // Fallback to mock data if DB is empty or disconnected
     return mockProducts;
   } catch (error) {
     console.error('Error in getAllProducts service:', error);
@@ -18,9 +22,11 @@ export const getAllProducts = async () => {
 
 export const getProductById = async (id) => {
   try {
-    const dbProduct = await productRepository.findProductById(id);
-    if (dbProduct) {
-      return dbProduct;
+    if (mongoose.connection.readyState === 1) {
+      const dbProduct = await productRepository.findProductById(id);
+      if (dbProduct) {
+        return dbProduct;
+      }
     }
     
     // Fallback search in mock data
