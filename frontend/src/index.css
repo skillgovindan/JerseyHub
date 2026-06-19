@@ -96,8 +96,7 @@ a {
   margin-bottom: 4rem;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  border: 1px solid var(--border-color);
+  /* Removed border and shadow to allow seamless fading into the background */
 }
 
 .hero-cover {
@@ -106,6 +105,18 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Fading the edges of the image into the background color */
+.hero-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(to right, var(--bg-color) 0%, transparent 15%, transparent 85%, var(--bg-color) 100%),
+    linear-gradient(to bottom, var(--bg-color) 0%, transparent 10%, transparent 90%, var(--bg-color) 100%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .hero-cover-img {
@@ -121,11 +132,13 @@ a {
   transform: translate(-50%, -50%);
   z-index: 2;
   text-align: center;
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(8px);
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
   padding: 2rem 4rem;
-  border-radius: 12px;
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 90%;
+  max-width: 600px;
 }
 
 .hero-title {
@@ -134,11 +147,25 @@ a {
   background: linear-gradient(to right, #f8fafc, #94a3b8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  line-height: 1.2;
 }
 
 .hero-subtitle {
   font-size: 1.2rem;
   color: var(--text-secondary);
+}
+
+/* Mobile Responsiveness for Hero */
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 1.5rem 1.5rem;
+  }
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
 }
 
 /* Product Grid */
