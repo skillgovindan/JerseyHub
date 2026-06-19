@@ -433,7 +433,7 @@ const products = [
       "XL"
     ],
     "stockCount": 55,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/800px-Arsenal_FC.svg.png"
+    "imageUrl": "/jerseys/arsebal.webp"
   },
   {
     "_id": "club-6",
@@ -448,7 +448,7 @@ const products = [
       "XL"
     ],
     "stockCount": 50,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/800px-Manchester_United_FC_crest.svg.png"
+    "imageUrl": "/jerseys/manchester united.webp"
   },
   {
     "_id": "club-7",
@@ -463,7 +463,7 @@ const products = [
       "XL"
     ],
     "stockCount": 45,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Liverpool_FC.svg/800px-Liverpool_FC.svg.png"
+    "imageUrl": "/jerseys/liverpool.webp"
   },
   {
     "_id": "club-8",
@@ -478,7 +478,7 @@ const products = [
       "XL"
     ],
     "stockCount": 45,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/800px-Chelsea_FC.svg.png"
+    "imageUrl": "/jerseys/chelsea.webp"
   }
 ];
 
