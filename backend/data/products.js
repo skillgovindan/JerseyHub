@@ -373,7 +373,7 @@ const products = [
       "XL"
     ],
     "stockCount": 50,
-    "imageUrl": "https://placehold.co/800x800/FFFFFF/000000?text=Real+Madrid"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/800px-Real_Madrid_CF.svg.png"
   },
   {
     "_id": "club-2",
@@ -388,7 +388,7 @@ const products = [
       "XL"
     ],
     "stockCount": 50,
-    "imageUrl": "https://placehold.co/800x800/004D98/DB0030?text=Barcelona"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/800px-FC_Barcelona_%28crest%29.svg.png"
   },
   {
     "_id": "club-3",
@@ -403,7 +403,7 @@ const products = [
       "XL"
     ],
     "stockCount": 40,
-    "imageUrl": "https://placehold.co/800x800/CB3524/FFFFFF?text=Atletico+Madrid"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Atletico_Madrid_2017_logo.svg/800px-Atletico_Madrid_2017_logo.svg.png"
   },
   {
     "_id": "club-4",
@@ -418,7 +418,7 @@ const products = [
       "XL"
     ],
     "stockCount": 60,
-    "imageUrl": "https://placehold.co/800x800/6CABDD/FFFFFF?text=Man+City"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/800px-Manchester_City_FC_badge.svg.png"
   },
   {
     "_id": "club-5",
@@ -433,7 +433,7 @@ const products = [
       "XL"
     ],
     "stockCount": 55,
-    "imageUrl": "https://placehold.co/800x800/EF0107/FFFFFF?text=Arsenal"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/800px-Arsenal_FC.svg.png"
   },
   {
     "_id": "club-6",
@@ -448,7 +448,7 @@ const products = [
       "XL"
     ],
     "stockCount": 50,
-    "imageUrl": "https://placehold.co/800x800/DA291C/FFFFFF?text=Man+United"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/800px-Manchester_United_FC_crest.svg.png"
   },
   {
     "_id": "club-7",
@@ -463,7 +463,7 @@ const products = [
       "XL"
     ],
     "stockCount": 45,
-    "imageUrl": "https://placehold.co/800x800/C8102E/FFFFFF?text=Liverpool"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Liverpool_FC.svg/800px-Liverpool_FC.svg.png"
   },
   {
     "_id": "club-8",
@@ -478,7 +478,7 @@ const products = [
       "XL"
     ],
     "stockCount": 45,
-    "imageUrl": "https://placehold.co/800x800/034694/FFFFFF?text=Chelsea"
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/800px-Chelsea_FC.svg.png"
   }
 ];
 
