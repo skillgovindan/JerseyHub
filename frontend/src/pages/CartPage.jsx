@@ -1,9 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { CartContext } from '../context/CartContext';
-import { Trash2 } from 'lucide-react';
+import { Trash2, X, CreditCard, Smartphone, CheckCircle } from 'lucide-react';
 
 const CartPage = () => {
-  const { cart, removeFromCart, updateQuantity } = useContext(CartContext);
+  const { cart, removeFromCart, updateQuantity, clearCart } = useContext(CartContext);
+  const [showModal, setShowModal] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState('idle'); // idle, processing, success
+
+  const processPayment = (method) => {
+    setPaymentStatus('processing');
+    setTimeout(() => {
+      setPaymentStatus('success');
+      clearCart();
+    }, 2000);
+  };
 
   const cartTotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
 
@@ -55,11 +65,65 @@ const CartPage = () => {
             
             <div className="cart-summary">
               <div className="cart-total">Total: ${cartTotal.toFixed(2)}</div>
-              <button className="btn-checkout">Proceed to Checkout</button>
+              <button className="btn-checkout" onClick={() => { setShowModal(true); setPaymentStatus('idle'); }}>Proceed to Checkout</button>
             </div>
           </>
         )}
       </div>
+
+      {/* Payment Modal */}
+      {showModal && (
+        <div className="modal-overlay payment-overlay">
+          <div className="payment-modal">
+            {paymentStatus !== 'processing' && (
+              <button className="modal-close" onClick={() => setShowModal(false)}>
+                <X size={24} />
+              </button>
+            )}
+            
+            {paymentStatus === 'idle' && (
+              <>
+                <h2 className="payment-title">Complete Payment</h2>
+                <p className="payment-subtitle">Total Amount: <strong>${cartTotal.toFixed(2)}</strong></p>
+                
+                <div className="payment-options">
+                  <button className="payment-method-card" onClick={() => processPayment('Credit Card')}>
+                    <CreditCard size={28} />
+                    <span>Credit Card</span>
+                  </button>
+                  <button className="payment-method-card" onClick={() => processPayment('PayPal')}>
+                    <Smartphone size={28} />
+                    <span>PayPal</span>
+                  </button>
+                  <button className="payment-method-card" onClick={() => processPayment('Apple Pay')}>
+                    <Smartphone size={28} />
+                    <span>Apple Pay</span>
+                  </button>
+                </div>
+              </>
+            )}
+
+            {paymentStatus === 'processing' && (
+              <div className="payment-status-container">
+                <div className="spinner"></div>
+                <h3>Processing Payment...</h3>
+                <p>Please do not close this window.</p>
+              </div>
+            )}
+
+            {paymentStatus === 'success' && (
+              <div className="payment-status-container success-container">
+                <CheckCircle size={64} color="#10b981" className="success-icon" />
+                <h3>Payment Successful!</h3>
+                <p>Thank you for your order.</p>
+                <button className="btn-add" style={{ marginTop: '1.5rem' }} onClick={() => setShowModal(false)}>
+                  Continue Shopping
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
