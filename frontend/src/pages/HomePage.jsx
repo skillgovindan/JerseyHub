@@ -47,6 +47,9 @@ const HomePage = () => {
               <div className="product-info">
                 <span className="product-team">{product.team}</span>
                 <h3 className="product-name">{product.name}</h3>
+                {product.offer && (
+                  <div className="product-offer">{product.offer}</div>
+                )}
                 <div className="product-price">${product.price.toFixed(2)}</div>
                 {comingSoon ? (
                   <button className="btn-add btn-coming-soon" disabled>
@@ -85,6 +88,9 @@ const HomePage = () => {
               <div className="modal-details">
                 <span className="modal-team">{selectedProduct.team}</span>
                 <h2 className="modal-title">{selectedProduct.name}</h2>
+                {selectedProduct.offer && (
+                  <div className="product-offer modal-offer">{selectedProduct.offer}</div>
+                )}
                 <div className="modal-price">${selectedProduct.price.toFixed(2)}</div>
                 <p className="modal-desc">{selectedProduct.description}</p>
                 

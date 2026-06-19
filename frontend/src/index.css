@@ -211,7 +211,7 @@ a {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 1rem;
+  padding: 0.5rem;
   transition: transform 0.5s ease;
 }
 
@@ -238,6 +238,23 @@ a {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+}
+
+.product-offer {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.modal-offer {
+  font-size: 1rem;
+  padding: 0.3rem 0.8rem;
 }
 
 .product-price {
