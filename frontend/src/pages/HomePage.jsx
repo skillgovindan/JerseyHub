@@ -26,8 +26,13 @@ const HomePage = () => {
   return (
     <div className="main-content">
       <section className="hero-section">
-        <h1 className="hero-title">Elevate Your Game</h1>
-        <p className="hero-subtitle">Premium jerseys for the true fans. Wear your passion.</p>
+        <div className="hero-cover">
+          <img src="/jerseys/cover photo.jpg" alt="JerseyHub Cover" className="hero-cover-img" />
+          <div className="hero-content">
+            <h1 className="hero-title">Elevate Your Game</h1>
+            <p className="hero-subtitle">Premium jerseys for the true fans. Wear your passion.</p>
+          </div>
+        </div>
       </section>
 
       <div className="products-grid">

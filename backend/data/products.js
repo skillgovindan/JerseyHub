@@ -380,6 +380,7 @@ const products = [
     "name": "FC Barcelona Home Jersey",
     "description": "The official home jersey for FC Barcelona. Iconic Blaugrana stripes.",
     "team": "FC Barcelona",
+    "offer": "🔥 + FREE SHORTS",
     "price": 105,
     "sizes": [
       "S",
@@ -455,6 +456,7 @@ const products = [
     "name": "Liverpool Home Jersey",
     "description": "The official home jersey for Liverpool. Solid red.",
     "team": "Liverpool",
+    "offer": "🔥 + FREE SHORTS",
     "price": 100,
     "sizes": [
       "S",
