@@ -108,7 +108,8 @@ const HomePage = () => {
               </div>
             </div>
           );
-        })}
+        })
+      )}
       </div>
 
       {/* Quick View Modal */}
