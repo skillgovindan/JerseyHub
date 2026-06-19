@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { CartContext } from '../context/CartContext';
-import { Clock, Eye, X } from 'lucide-react';
+import { Clock, Eye, X, Search, CheckCircle2 } from 'lucide-react';
 
 const isComingSoon = (url) => url && (url.includes('placehold.co') || url.includes('wikimedia.org'));
 
@@ -9,7 +9,24 @@ const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [toastMessage, setToastMessage] = useState(null);
   const { addToCart } = useContext(CartContext);
+
+  const handleAddToCart = () => {
+    addToCart(selectedProduct, selectedSize);
+    setToastMessage(`Added ${selectedProduct.name} to cart!`);
+    setSelectedProduct(null);
+    setSelectedSize(null);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3000);
+  };
+
+  const filteredProducts = products.filter(product => 
+    product.team.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -35,9 +52,24 @@ const HomePage = () => {
         </div>
       </section>
 
+      <div className="controls-section">
+        <div className="search-bar">
+          <Search className="search-icon" size={20} />
+          <input 
+            type="text" 
+            placeholder="Search teams or jerseys..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
+
       <div className="products-grid">
-        {products.map((product) => {
-          const comingSoon = isComingSoon(product.imageUrl);
+        {filteredProducts.length === 0 ? (
+          <div className="no-results">No jerseys found matching your search.</div>
+        ) : (
+          filteredProducts.map((product) => {
+            const comingSoon = isComingSoon(product.imageUrl);
           return (
             <div key={product._id || product.name} className={`product-card ${comingSoon ? 'coming-soon-card' : ''}`}>
               <div className="product-img-wrapper" onClick={() => !comingSoon && setSelectedProduct(product)} style={{ cursor: comingSoon ? 'default' : 'pointer' }}>
@@ -122,20 +154,22 @@ const HomePage = () => {
                 
                 <button 
                   className={`btn-add modal-btn ${!selectedSize ? 'disabled' : ''}`} 
-                  onClick={() => {
-                    if (selectedSize) {
-                      addToCart(selectedProduct, selectedSize);
-                      setSelectedProduct(null);
-                      setSelectedSize(null);
-                    }
-                  }}
-                  disabled={selectedProduct.stockCount === 0 || !selectedSize}
+                  disabled={!selectedSize}
+                  onClick={handleAddToCart}
                 >
                   {!selectedSize ? 'Please Select a Size' : 'Add to Cart'}
                 </button>
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="toast-notification">
+          <CheckCircle2 size={24} color="#10b981" />
+          <span>{toastMessage}</span>
         </div>
       )}
     </div>
