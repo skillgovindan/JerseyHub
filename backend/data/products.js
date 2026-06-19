@@ -132,7 +132,7 @@ const products = [
     "price": 89,
     "sizes": ["S", "M", "L", "XL"],
     "stockCount": 22,
-    "imageUrl": "https://placehold.co/800x800/FF0000/FFFFFF?text=Switzerland+Jersey"
+    "imageUrl": "/jerseys/switzerland.png"
   },
   {
     "_id": "fifa-14",
@@ -142,7 +142,7 @@ const products = [
     "price": 89,
     "sizes": ["S", "M", "L", "XL"],
     "stockCount": 20,
-    "imageUrl": "https://placehold.co/800x800/C60C30/FFFFFF?text=Denmark+Jersey"
+    "imageUrl": "/jerseys/denmark.png"
   },
   {
     "_id": "fifa-15",
@@ -152,7 +152,7 @@ const products = [
     "price": 85,
     "sizes": ["S", "M", "L", "XL"],
     "stockCount": 18,
-    "imageUrl": "https://placehold.co/800x800/C6363C/FFFFFF?text=Serbia+Jersey"
+    "imageUrl": "/jerseys/serbia.png"
   },
   {
     "_id": "fifa-16",
@@ -162,7 +162,7 @@ const products = [
     "price": 85,
     "sizes": ["S", "M", "L", "XL"],
     "stockCount": 22,
-    "imageUrl": "https://placehold.co/800x800/DC143C/FFFFFF?text=Poland+Jersey"
+    "imageUrl": "/jerseys/poland.png"
   },
   {
     "_id": "fifa-17",
@@ -172,7 +172,7 @@ const products = [
     "price": 85,
     "sizes": ["S", "M", "L", "XL"],
     "stockCount": 20,
-    "imageUrl": "https://placehold.co/800x800/FECC00/006AA7?text=Sweden+Jersey"
+    "imageUrl": "/jerseys/sweden.png"
   },
   {
     "_id": "fifa-18",
