@@ -388,7 +388,7 @@ const products = [
       "XL"
     ],
     "stockCount": 50,
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/800px-FC_Barcelona_%28crest%29.svg.png"
+    "imageUrl": "/jerseys/Barca.webp"
   },
   {
     "_id": "club-3",

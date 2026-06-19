@@ -3,7 +3,7 @@ import axios from 'axios';
 import { CartContext } from '../context/CartContext';
 import { Clock, Eye, X } from 'lucide-react';
 
-const isComingSoon = (url) => url && url.includes('placehold.co');
+const isComingSoon = (url) => url && (url.includes('placehold.co') || url.includes('wikimedia.org'));
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
