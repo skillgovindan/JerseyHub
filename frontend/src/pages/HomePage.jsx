@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { CartContext } from '../context/CartContext';
-import { Clock } from 'lucide-react';
+import { Clock, Eye, X } from 'lucide-react';
 
 const isComingSoon = (url) => url && url.includes('placehold.co');
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const HomePage = () => {
           const comingSoon = isComingSoon(product.imageUrl);
           return (
             <div key={product._id || product.name} className={`product-card ${comingSoon ? 'coming-soon-card' : ''}`}>
-              <div className="product-img-wrapper">
+              <div className="product-img-wrapper" onClick={() => !comingSoon && setSelectedProduct(product)} style={{ cursor: comingSoon ? 'default' : 'pointer' }}>
                 {comingSoon && (
                   <div className="coming-soon-overlay">
                     <Clock size={32} />
@@ -51,18 +52,75 @@ const HomePage = () => {
                     Coming Soon
                   </button>
                 ) : (
-                  <button 
-                    className="btn-add" 
-                    onClick={() => addToCart(product)}
-                  >
-                    Add to Cart
-                  </button>
+                  <div className="card-actions">
+                    <button 
+                      className="btn-view" 
+                      onClick={() => setSelectedProduct(product)}
+                      title="Quick View"
+                    >
+                      <Eye size={20} />
+                    </button>
+                    <button 
+                      className="btn-add flex-1" 
+                      onClick={() => addToCart(product)}
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 )}
               </div>
             </div>
           );
         })}
       </div>
+
+      {/* Quick View Modal */}
+      {selectedProduct && (
+        <div className="modal-overlay" onClick={() => setSelectedProduct(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setSelectedProduct(null)}>
+              <X size={24} />
+            </button>
+            <div className="modal-body">
+              <div className="modal-img-container">
+                <img src={selectedProduct.imageUrl} alt={selectedProduct.name} className="modal-img" />
+              </div>
+              <div className="modal-details">
+                <span className="modal-team">{selectedProduct.team}</span>
+                <h2 className="modal-title">{selectedProduct.name}</h2>
+                <div className="modal-price">${selectedProduct.price.toFixed(2)}</div>
+                <p className="modal-desc">{selectedProduct.description}</p>
+                
+                <div className="modal-sizes">
+                  <h4>Available Sizes</h4>
+                  <div className="size-options">
+                    {selectedProduct.sizes.map(size => (
+                      <span key={size} className="size-badge">{size}</span>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="modal-stock">
+                  <span className={`stock-status ${selectedProduct.stockCount > 0 ? 'in-stock' : 'out-of-stock'}`}>
+                    {selectedProduct.stockCount > 0 ? 'In Stock' : 'Out of Stock'}
+                  </span>
+                </div>
+                
+                <button 
+                  className="btn-add modal-btn" 
+                  onClick={() => {
+                    addToCart(selectedProduct);
+                    setSelectedProduct(null);
+                  }}
+                  disabled={selectedProduct.stockCount === 0}
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
