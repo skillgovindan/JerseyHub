@@ -31,7 +31,8 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/products');
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+        const { data } = await axios.get(`${apiUrl}/api/products`);
         setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
