@@ -5,13 +5,35 @@ import { Clock, Eye, X, Search, CheckCircle2 } from 'lucide-react';
 
 const isComingSoon = (url) => url && (url.includes('placehold.co') || url.includes('wikimedia.org'));
 
+const SKELETON_COUNT = 10;
+
+const SkeletonCard = () => (
+  <div className="product-card skeleton-card">
+    <div className="skeleton-img-wrapper">
+      <div className="skeleton skeleton-img-block" />
+    </div>
+    <div className="product-info">
+      <div className="skeleton skeleton-line skeleton-line-sm" />
+      <div className="skeleton skeleton-line skeleton-line-md" />
+      <div className="skeleton skeleton-line skeleton-line-lg" />
+      <div className="skeleton skeleton-line skeleton-btn" />
+    </div>
+  </div>
+);
+
 const HomePage = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadedImages, setLoadedImages] = useState({});
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [toastMessage, setToastMessage] = useState(null);
   const { addToCart } = useContext(CartContext);
+
+  const handleImageLoad = (id) => {
+    setLoadedImages(prev => ({ ...prev, [id]: true }));
+  };
 
   const handleAddToCart = () => {
     addToCart(selectedProduct, selectedSize);
@@ -36,6 +58,8 @@ const HomePage = () => {
         setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProducts();
@@ -66,51 +90,68 @@ const HomePage = () => {
       </div>
 
       <div className="products-grid">
-        {filteredProducts.length === 0 ? (
+        {loading ? (
+          Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))
+        ) : filteredProducts.length === 0 ? (
           <div className="no-results">No jerseys found matching your search.</div>
         ) : (
           filteredProducts.map((product) => {
             const comingSoon = isComingSoon(product.imageUrl);
-          return (
-            <div key={product._id || product.name} className={`product-card ${comingSoon ? 'coming-soon-card' : ''}`}>
-              <div className="product-img-wrapper" onClick={() => !comingSoon && setSelectedProduct(product)} style={{ cursor: comingSoon ? 'default' : 'pointer' }}>
-                {comingSoon && (
-                  <div className="coming-soon-overlay">
-                    <Clock size={32} />
-                    <span>Coming Soon</span>
-                  </div>
-                )}
-                <img src={product.imageUrl} alt={product.name} className={`product-img ${comingSoon ? 'coming-soon-img' : ''}`} />
-              </div>
-              <div className="product-info">
-                <span className="product-team">{product.team}</span>
-                <h3 className="product-name">{product.name}</h3>
-                {product.offer && (
-                  <div className="product-offer">{product.offer}</div>
-                )}
-                <div className="product-price">${product.price.toFixed(2)}</div>
-                {comingSoon ? (
-                  <button className="btn-add btn-coming-soon" disabled>
-                    Coming Soon
-                  </button>
-                ) : (
-                  <div className="card-actions">
-                    <button 
-                      className="btn-add flex-1" 
-                      onClick={() => {
-                        setSelectedProduct(product);
-                        setSelectedSize(null);
-                      }}
-                    >
-                      Select Size
+            const imgId = product._id || product.name;
+            const imgLoaded = loadedImages[imgId];
+            return (
+              <div key={imgId} className={`product-card ${comingSoon ? 'coming-soon-card' : ''}`}>
+                <div className="product-img-wrapper" onClick={() => !comingSoon && setSelectedProduct(product)} style={{ cursor: comingSoon ? 'default' : 'pointer' }}>
+                  {comingSoon && (
+                    <div className="coming-soon-overlay">
+                      <Clock size={32} />
+                      <span>Coming Soon</span>
+                    </div>
+                  )}
+                  {!imgLoaded && (
+                    <div className="img-skeleton-overlay">
+                      <div className="img-skeleton-shimmer" />
+                    </div>
+                  )}
+                  <img
+                    src={product.imageUrl}
+                    alt={product.name}
+                    className={`product-img ${comingSoon ? 'coming-soon-img' : ''} ${imgLoaded ? 'img-loaded' : 'img-loading'}`}
+                    onLoad={() => handleImageLoad(imgId)}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="product-info">
+                  <span className="product-team">{product.team}</span>
+                  <h3 className="product-name">{product.name}</h3>
+                  {product.offer && (
+                    <div className="product-offer">{product.offer}</div>
+                  )}
+                  <div className="product-price">${product.price.toFixed(2)}</div>
+                  {comingSoon ? (
+                    <button className="btn-add btn-coming-soon" disabled>
+                      Coming Soon
                     </button>
-                  </div>
-                )}
+                  ) : (
+                    <div className="card-actions">
+                      <button
+                        className="btn-add flex-1"
+                        onClick={() => {
+                          setSelectedProduct(product);
+                          setSelectedSize(null);
+                        }}
+                      >
+                        Select Size
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })
-      )}
+            );
+          })
+        )}
       </div>
 
       {/* Quick View Modal */}
